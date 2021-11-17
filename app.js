@@ -1,7 +1,3 @@
-/*
-    SETUP
-*/
-
 // Express
 var express = require('express');
 var app = express();
@@ -44,10 +40,17 @@ app.get('/', function(req, res)
 });
 
 // Users Route
+// Load Users page - GET
 app.get('/users', function(req, res)
 {
-    res.render('users');
+    query1 = "SELECT * FROM Users;"
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('users', {data: rows});
+    })
 });
+
+
+
 
 // Workspaces Route
 app.get('/workspaces', function(req, res)
@@ -62,6 +65,7 @@ app.get('/channels', function(req, res)
 });
 
 // Categories Route
+// Load Categories page - GET
 app.get('/categories', function(req, res)
 {
     query1 = "SELECT * FROM Categories;"
@@ -70,27 +74,7 @@ app.get('/categories', function(req, res)
     })
 });
 
-// Messages Route
-app.get('/messages', function(req, res)
-{
-    res.render('messages');
-});
-
-// Users_Workspaces Route
-app.get('/users_workspaces', function(req, res)
-{
-    res.render('users_workspaces');
-});
-
-// Example Route
-app.get('/example', function(req, res)
-{
-    res.render('example');
-});
-
-// POST ROUTES
-
-// CREATE CATEGORY
+// Create Category - POST
 app.post('/add-category-ajax', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
@@ -141,107 +125,31 @@ app.post('/add-category-ajax', function(req, res)
     })
 });
 
-
-
-
-
-
-
-
-
-// EXAMPLES!!!!!!!!!!!!!!!!!!!!!!
-
-
-// POST ROUTES
-app.post('/add-person-ajax', function(req, res) 
+// Messages Route
+app.get('/messages', function(req, res)
 {
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // Capture NULL values
-    let homeworld = parseInt(data.homeworld);
-    if (isNaN(homeworld))
-    {
-        homeworld = 'NULL'
-    }
-
-    let age = parseInt(data.age);
-    if (isNaN(age))
-    {
-        age = 'NULL'
-    }
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data.fname}', '${data.lname}', ${homeworld}, ${age})`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else
-        {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM bsg_people;`;
-            db.pool.query(query2, function(error, rows, fields){
-
-                // If there was an error on the second query, send a 400
-                if (error) {
-                    
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else
-                {
-                    res.send(rows);
-                }
-            })
-        }
-    })
+    res.render('messages');
 });
 
-app.post('/add-person-form', function(req, res){
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
+// Users_Workspaces Route
+app.get('/users_workspaces', function(req, res)
+{
+    res.render('users_workspaces');
+});
 
-    // Capture NULL values
-    let homeworld = parseInt(data['input-homeworld']);
-    if (isNaN(homeworld))
-    {
-        homeworld = 'NULL'
-    }
+// Example Route
+app.get('/example', function(req, res)
+{
+    res.render('example');
+});
 
-    let age = parseInt(data['input-age']);
-    if (isNaN(age))
-    {
-        age = 'NULL'
-    }
+// POST ROUTES
 
-    // Create the query and run it on the database
-    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
-    db.pool.query(query1, function(error, rows, fields){
 
-        // Check to see if there was an error
-        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
-        else
-        {
-            res.redirect('/');
-        }
-    })
-})
+
+
 
 /*
     LISTENER
