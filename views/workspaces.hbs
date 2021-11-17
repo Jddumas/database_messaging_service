@@ -70,7 +70,7 @@
           </div>
 
           <div class="mb-3">
-            <label class="form" for="input_administrator">Administrator: *Enter username*</label><br>
+            <label class="form" for="input_administrator">Administrator: *Enter username* (foreign key)</label><br>
             <input type="text" id="input_administrator" name="input_administrator">
           </div>
           
@@ -102,27 +102,6 @@
   </div>  
 
   </hr>
-
-  <!-- Data Table -->
-  <div class='container'>
-    <div class='col-12'>
-      <h3 class='text-center'>Workspaces Data</h3>
-      <table class="table">
-        <tr>
-          <th>workspace_id</th>
-          <th>workspace_name</th>
-          <th>administrator</th>
-          <th>Users</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Sales Department</td>
-          <td>2</td>
-          <td><a class="btn btn-secondary" href="/users_workspaces.html">View</a></td>
-        </tr>
-      </table> 
-    </div>
-  </div>
 
   <!-- Dynamic Data Table -->
   <div class='container'>
@@ -168,10 +147,10 @@
 <script src="./js/add_workspace.js"></script>
 
 <!-- Footer -->
-  <footer class="page-footer font-small blue fixed-bottom ">
+  {{!-- <footer class="page-footer font-small blue fixed-bottom ">
     <div class="footer-copyright text-center py-3">© 2021 Group 95: Carl Fitzpatrick and Jacob Dumas
     </div>  
-  </footer>
+  </footer> --}}
 <!-- Footer -->
   
   <!-- Optional JavaScript; choose one of the two! -->

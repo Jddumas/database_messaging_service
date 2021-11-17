@@ -342,30 +342,69 @@ app.post('/add-category-ajax', function(req, res)
     })
 });
 
-// Messages Route
-app.get('/messages', function(req, res)
-{
-    res.render('messages');
-});
 
 // Users_Workspaces Route
+// Load Users_Workspaces page - GET
 app.get('/users_workspaces', function(req, res)
 {
-    res.render('users_workspaces');
+    query1 = "SELECT * FROM Users_Workspaces;"
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('users_workspaces', {data: rows});
+    })
 });
+
+// Create User_Workspace - POST
+app.post('/add-user-workspace-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    user_query = `(SELECT user_id FROM Users WHERE username="${data.username}")`
+    workspace_query = `(SELECT workspace_id FROM Workspaces WHERE workspace_name="${data.workspace_name}")`
+    create_user_workspace_query = `INSERT INTO Users_Workspaces (user_id, workspace_id) VALUES (${user_query}, ${workspace_query})`;
+
+
+    // query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data.fname}', '${data.lname}', ${homeworld}, ${age})`;
+    db.pool.query(create_user_workspace_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Users_Workspaces
+            read_users_workspaces_query = `SELECT * FROM Users_Workspaces`;
+            db.pool.query(read_users_workspaces_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 
 // Example Route
 app.get('/example', function(req, res)
 {
     res.render('example');
 });
-
-// POST ROUTES
-
-
-
-
-
 
 
 /*
