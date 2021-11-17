@@ -153,10 +153,133 @@ app.post('/add-workspace-ajax', function(req, res)
 
 
 // Channels Route
+// Load Channels page - GET
 app.get('/channels', function(req, res)
 {
-    res.render('channels');
+    query1 = "SELECT * FROM Channels;"
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('channels', {data: rows});
+    })});
+
+// Create Channels - POST
+app.post('/add-channel-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    workspace_query = `(SELECT workspace_id FROM Workspaces WHERE workspace_name="${data.workspace_name}")`
+    category_query = `(SELECT category_id FROM Categories WHERE category_name="${data.category_name}")`
+    
+    create_channel_query = `INSERT INTO Channels (channel_name, workspace_id, category_id) VALUES ('${data.channel_name}', ${workspace_query}, ${category_query})`;
+
+    db.pool.query(create_channel_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            read_channels_query = "SELECT * FROM Channels;";
+            db.pool.query(read_channels_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
 });
+
+
+
+
+
+
+
+// Messages Route
+// Load Messages page - GET
+app.get('/messages', function(req, res)
+{
+    query1 = "SELECT * FROM Messages;"
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('messages', {data: rows});
+    })});
+
+// Create Message - POST
+app.post('/add-message-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    user_query = `(SELECT user_id FROM Users WHERE username="${data.username}")`
+    channel_query = `(SELECT channel_id FROM Channels WHERE channel_name="${data.channel_name}")`
+    create_message_query = `INSERT INTO Messages (user, channel, time, date, content) VALUES (${user_query}, ${channel_query}, '${data.time}', '${data.date}', '${data.content}')`;
+
+    db.pool.query(create_message_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Messages
+            read_messages_query = "SELECT * FROM Messages;";
+            db.pool.query(read_messages_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Categories Route
 // Load Categories page - GET

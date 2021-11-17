@@ -62,42 +62,35 @@
     <div class="row">
       <!-- Create -->
       <div class='col-6 pt'>
-        <form>
+        <form id='add-message-form-ajax'>
           <h3>Create a new Message:</h3>
+
           <div class="mb-3">
-            <label class="form-label" for="Username">Username: not NULL</label><br>
-            <select class="form-select" required id="user" name="user">
-                <option value="" disabled selected hidden>Choose a username_id...</option>
-                <option value='user'>username here</option>
-            </select>
+            <label class="form-label" for="input_username">Username: (foreign key) not NULL </label>
+            <input class="form-control" type="text" id="input_username" name="input_username"></input>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="channel_id">Channel: not NULL</label><br>
-            <select class="form-select" required id="channel" name="channel">
-                <option value="" disabled selected hidden>Choose a channel_id...</option>
-                <option value='channel'>channel_name here</option>
-            </select>
+            <label class="form-label" for="input_channel">Channel: (foreign key) not NULL</label>
+            <input class="form-control" type="text" id="input_channel" name="input_channel"></input>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="content">Message Content: varchar(2000), not NULL</label>
-            <textarea class="form-control" type="text" id="content" name="content" rows="3"></textarea>
-          </div>
-
-          
-
-          <div class="mb-3">
-            <label class="form-label" for="time">Time: time (format: HH-MM-SS, military), not NULL</label>
-            <input class="form-control" type="text" id="time" name="time"></input>
+            <label class="form-label" for="input_content">Message Content: varchar(2000), not NULL</label>
+            <textarea class="form-control" type="text" id="input_content" name="input_content" rows="3"></textarea>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="date">Date: date (format: YYYY-MM-DD), not NULL</label>
-            <input class="form-control" type="text" id="date" name="date"></input>
+            <label class="form-label" for="input_time">Time: time (format: HH:MM:SS, military), not NULL</label>
+            <input class="form-control" type="text" id="input_time" name="input_time"></input>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="input_date">Date: date (format: YYYY-MM-DD), not NULL</label>
+            <input class="form-control" type="text" id="input_date" name="input_date"></input>
           </div>
           
-          <button type="button" class="btn btn-primary">Create Message</button>
+          <button type="submit" class="btn btn-primary">Create Message</button>
         </form> 
       </div>
 
@@ -158,6 +151,60 @@
       </table>
     </div>
   </div>
+
+
+
+  <!-- Dynamic Data Table -->
+  <div class='container'>
+    <div class="row justify-content-center">
+      <div class='col-6'>
+        <h3 class='text-center'>Messages Data</h3>
+        {{!-- Create a table --}}
+          <table class="table" id="message-table">
+            {{!-- Header section --}}
+            <thead>
+
+                {{!-- For just the first row, we print each key of the row object as a header cell so we
+                know what each column means when the page renders --}}
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            {{!-- Body section --}}
+            <tbody>
+
+                {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                {{#each data}}
+                <tr>
+                    <td>{{this.message_id}}</td>
+                    <td>{{this.user}}</td>
+                    <td>{{this.channel}}</td>
+                    <td>{{this.time}}</td>
+                    <td>{{this.date}}</td>
+                    <td>{{this.content}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+          </table>
+        {{!-- Create a table --}}
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_message.js"></script>
+
+
 
   <!-- Footer -->
   <footer class="page-footer font-small blue fixed-bottom ">

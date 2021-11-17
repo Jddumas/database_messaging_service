@@ -62,30 +62,22 @@
     <div class="row">
       <!-- Create -->
       <div class='col-6 pt'>
-        <form>
+        <form id='add-channel-form-ajax'>
           <h3>Create a new Channel:</h3>
           <div class="mb-3">
-            <label class="form-label" for="channel_name">Channel Name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="channel_name" name="channel_name">
+            <label class="form-label" for="input_channel_name">Channel Name: (varchar(16), not NULL)</label>
+            <input class="form-control" type="text" id="input_channel_name" name="input_channel_name">
           </div>
-
           <div class="mb-3">
-            <label class="form-label" for="workspace_id">Workspace ID: not NULL</label><br>
-            <select class="form-select" required id="workspace_id" name="workspace_id">
-                <option value="" disabled selected hidden>Choose a workspace_id...</option>
-                <option value='workspace_id'>workspace_id here</option>
-            </select>
+            <label class="form-label" for="input_workspace_name">Workspace Name: (foreign key, not NULL)</label>
+            <input class="form-control" type="text" id="input_workspace_name" name="input_workspace_name">
           </div>
-
           <div class="mb-3">
-            <label class="form-label" for="category_id">Category ID: can be NULL</label><br>
-            <select class="form-select" required id="category_id" name="category_id">
-                <option value="" disabled selected hidden>Choose a category_id...</option>
-                <option value='category_id'>category_id here</option>
-            </select>
+            <label class="form-label" for="input_category_name">Category Name: (foreign key, not NULL)</label>
+            <input class="form-control" type="text" id="input_category_name" name="input_category_name">
           </div>
-          
-          <button type="button" class="btn btn-primary">Create Channel</button>
+                    
+          <button type="submit" class="btn btn-primary">Create Channel</button>
         </form> 
       </div>
 
@@ -145,6 +137,60 @@
         </table> 
     </div>
   </div>
+
+
+
+
+
+  <!-- Dynamic Data Table -->
+  <div class='container'>
+    <div class="row justify-content-center">
+      <div class='col-6'>
+        <h3 class='text-center'>Channels Data</h3>
+        {{!-- Create a table --}}
+          <table class="table" id="channel-table">
+            {{!-- Header section --}}
+            <thead>
+
+                {{!-- For just the first row, we print each key of the row object as a header cell so we
+                know what each column means when the page renders --}}
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            {{!-- Body section --}}
+            <tbody>
+
+                {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                {{#each data}}
+                <tr>
+                    <td>{{this.channel_id}}</td>
+                    <td>{{this.channel_name}}</td>
+                    <td>{{this.workspace_id}}</td>
+                    <td>{{this.category_id}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+          </table>
+        {{!-- Create a table --}}
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_channel.js"></script>
+
 
   <!-- Footer -->
   <footer class="page-footer font-small blue fixed-bottom ">
