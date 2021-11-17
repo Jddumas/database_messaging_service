@@ -61,13 +61,13 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1]
 
     // Create a row and 2 cells
-    let row = document.createElement("TR");
-    let categoryIdCell = document.createElement("TD");
-    let categoryNameCell = document.createElement("TD");
+    let row = document.createElement("tr");
+    let categoryIdCell = document.createElement("td");
+    let categoryNameCell = document.createElement("td");
     
     // Fill the cells with correct data
-    categoryIdCell.innerText = newRow.id;
-    categoryNameCell.innerText = newRow.fname;
+    categoryIdCell.innerText = newRow.category_id;
+    categoryNameCell.innerText = newRow.category_name;
     
     // Add the cells to the row 
     row.appendChild(categoryIdCell);
