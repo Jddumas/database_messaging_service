@@ -106,7 +106,7 @@ app.post('/add-category-ajax', function(req, res)
     // Create the query and run it on the database
     create_category_query = `INSERT INTO Categories (category_name) VALUES ('${data.category_name}')`;
     
-    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data.fname}', '${data.lname}', ${homeworld}, ${age})`;
+    // query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data.fname}', '${data.lname}', ${homeworld}, ${age})`;
     db.pool.query(create_category_query, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -120,7 +120,7 @@ app.post('/add-category-ajax', function(req, res)
         {
             // If there was no error, perform a SELECT * on bsg_people
             read_categories_query = `SELECT * FROM Categories`;
-            query2 = `SELECT * FROM bsg_people;`;
+            // query2 = `SELECT * FROM bsg_people;`;
             db.pool.query(read_categories_query, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400

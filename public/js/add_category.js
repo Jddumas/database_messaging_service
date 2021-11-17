@@ -2,7 +2,7 @@
 let addCategoryForm = document.getElementById('add-category-form-ajax');
 
 // Modify the objects we need
-addCategoryForm.addEventListener("button", function (e) {
+addCategoryForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -21,7 +21,7 @@ addCategoryForm.addEventListener("button", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-person-ajax", true);
+    xhttp.open("POST", "/add-category-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
