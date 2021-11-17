@@ -62,29 +62,29 @@
     <div class="row">
       <!-- Create -->
       <div class='col-6 pt'>
-        <form>
+        <form id='add-user-form-ajax'>
           <h3>Create a new User:</h3>
           <div class="mb-3">
-            <label class="form-label" for="username" >Username: (varchar(16), unique, not NULL)</label>
-            <input class="form-control" type="text" id="username" name="username">
+            <label class="form-label" for="input_username" >Username: (varchar(16), unique, not NULL)</label>
+            <input class="form-control" type="text" id="input_username" name="input_username">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="first_name">First name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="first_name" name="first_name">
+            <label class="form-label" for="input_first_name">First name: (varchar(16), not NULL)</label>
+            <input class="form-control" type="text" id="input_first_name" name="input_first_name">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="last_name">Last name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="last_name" name="last_name">
+            <label class="form-label" for="input_last_name">Last name: (varchar(16), not NULL)</label>
+            <input class="form-control" type="text" id="input_last_name" name="input_last_name">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="email">Email: (varchar(32), not NULL)</label>
-            <input class="form-control" type="text" id="email" name="email">
+            <label class="form-label" for="input_email">Email: (varchar(32), not NULL)</label>
+            <input class="form-control" type="text" id="input_email" name="input_email">
           </div>
           
-          <button type="button" class="btn btn-primary">Create User</button>
+          <button type="submit" class="btn btn-primary">Create User</button>
         </form> 
       </div>
 
