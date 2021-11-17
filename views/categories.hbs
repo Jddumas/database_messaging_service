@@ -62,11 +62,11 @@
     <div class="row">
       <!-- Create -->
       <div class='col-6 pt'>
-        <form>
+        <form id='add-category-form-ajax'>
           <h3>Create a new Category:</h3>
           <div class="mb-3">
-            <label class="form-label" for="category_name">Category name: (varchar(16), not NULL)</label><br>
-            <input class="form-control" type="text" id="category_name" name="category_name">
+            <label class="form-label" for="input_category_name">Category name: (varchar(16), not NULL)</label><br>
+            <input class="form-control" type="text" id="input_category_name" name="input_category_name">
           </div>
           <button type="button" class="btn btn-primary">Create Category</button>
         </form> 
@@ -103,7 +103,7 @@
     <div class="row justify-content-center">
       <div class='col-3'>
         <h3 class='text-center'>Categories Data</h3>
-        <table class="table">
+        <table class="table" name="category-table">
           <tr>
             <th>category_id</th>
             <th>category_name</th>
@@ -120,6 +120,49 @@
       </div>
     </div>
   </div>
+
+  <!-- Dynamic Data Table -->
+  <div class='container'>
+    <div class="row justify-content-center">
+      <div class='col-3'>
+        <h3 class='text-center'>Categories Data</h3>
+        {{!-- Create a table --}}
+          <table class="table" id="people-table">
+            {{!-- Header section --}}
+            <thead>
+
+                {{!-- For just the first row, we print each key of the row object as a header cell so we
+                know what each column means when the page renders --}}
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            {{!-- Body section --}}
+            <tbody>
+
+                {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                {{#each data}}
+                <tr>
+                    <td>{{this.category_id}}</td>
+                    <td>{{this.category_name}}</td>
+
+                </tr>
+                {{/each}}
+            </tbody>
+          </table>
+        {{!-- Create a table --}}
+
+      </div>
+    </div>
+  </div>
+
+  {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_category.js"></script>
 
   <!-- Footer -->
   <footer class="page-footer font-small blue fixed-bottom ">

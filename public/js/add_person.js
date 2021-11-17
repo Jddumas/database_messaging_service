@@ -29,7 +29,7 @@ addPersonForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-person-ajax", true);
+    xhttp.open("POST", "/add-category-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -41,9 +41,7 @@ addPersonForm.addEventListener("submit", function (e) {
 
             // Clear the input fields for another transaction
             inputFirstName.value = '';
-            inputLastName.value = '';
-            inputHomeworld.value = '';
-            inputAge.value = '';
+            
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
