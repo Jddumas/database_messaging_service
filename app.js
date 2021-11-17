@@ -99,11 +99,58 @@ app.post('/add-user-ajax', function(req, res)
 
 
 
-// Workspaces Route
+// Workspaces Route 
+// Load Workspaces page - GET
 app.get('/workspaces', function(req, res)
 {
-    res.render('workspaces');
+    query1 = "SELECT * FROM Workspaces;"
+    db.pool.query(query1, function(error, rows, fields){
+        res.render('workspaces', {data: rows});
+    })});
+
+// Create Workspaces - POST
+app.post('/add-workspace-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    admin_query = `(SELECT user_id FROM Users WHERE username="${data.administrator}")`
+    create_workspace_query = `INSERT INTO Workspaces (workspace_name, administrator) VALUES ('${data.workspace_name}', ${admin_query})`;
+
+    db.pool.query(create_workspace_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            read_workspaces_query = "SELECT * FROM Workspaces;";
+            db.pool.query(read_workspaces_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
 });
+
 
 // Channels Route
 app.get('/channels', function(req, res)

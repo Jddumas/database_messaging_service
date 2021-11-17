@@ -62,22 +62,19 @@
     <div class="row">
       <!-- Create -->
       <div class='col-6 pt'>
-        <form>
+        <form id='add-workspace-form-ajax'>
           <h3>Create a new Workspace:</h3>
           <div class="mb-3">
-            <label class="formfor="workspace_name">Workspace Name: (varchar(16), not NULL)</label><br>
-            <input type="text" id="workspace_name" name="workspace_name">
+            <label class="form" for="input_workspace_name">Workspace Name: (varchar(16), not NULL)</label><br>
+            <input type="text" id="input_workspace_name" name="input_workspace_name">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="username">Administrator: not NULL</label><br>
-            <select class="form-select" required id="administrator" name="administrator">
-                <option value="" disabled selected hidden>Choose a user_id...</option>
-                <option value='administrator'>user_id here</option>
-            </select>
+            <label class="form" for="input_administrator">Administrator: *Enter username*</label><br>
+            <input type="text" id="input_administrator" name="input_administrator">
           </div>
           
-          <button type="button" class="btn btn-primary">Create Workspace</button>
+          <button type="submit" class="btn btn-primary">Create Workspace</button>
         </form> 
       </div>
 
@@ -104,7 +101,7 @@
     </div>
   </div>  
 
-  <hr>
+  </hr>
 
   <!-- Data Table -->
   <div class='container'>
@@ -126,6 +123,49 @@
       </table> 
     </div>
   </div>
+
+  <!-- Dynamic Data Table -->
+  <div class='container'>
+    <div class="row justify-content-center">
+      <div class='col-6'>
+        <h3 class='text-center'>Workspaces Data</h3>
+        {{!-- Create a table --}}
+          <table class="table" id="workspace-table">
+            {{!-- Header section --}}
+            <thead>
+
+                {{!-- For just the first row, we print each key of the row object as a header cell so we
+                know what each column means when the page renders --}}
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+
+            {{!-- Body section --}}
+            <tbody>
+
+                {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                {{#each data}}
+                <tr>
+                    <td>{{this.workspace_id}}</td>
+                    <td>{{this.workspace_name}}</td>
+                    <td>{{this.administrator}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+          </table>
+        {{!-- Create a table --}}
+
+      </div>
+    </div>
+  </div>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_workspace.js"></script>
 
 <!-- Footer -->
   <footer class="page-footer font-small blue fixed-bottom ">
