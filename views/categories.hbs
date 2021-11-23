@@ -74,19 +74,19 @@
 
       <!-- Update -->
       <div class='col-6'>
-        <form>
+        <form id='update-category-form-ajax'>
           <div class="mb-3">
             <h3>Update a Category:</h3>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="category_id">Category ID: not NULL</label>
-            <input class="form-control" type="text" id="category_id" name="category_id">
+            <label class="form-label" for="input_category_id_update">Category ID: not NULL</label>
+            <input class="form-control" type="text" id="input_category_id_update" name="input_category_id_update">
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="category_name">Category Name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="category_name" name="category_name">
+            <label class="form-label" for="input_category_name_update">Category Name: (varchar(16), not NULL)</label>
+            <input class="form-control" type="text" id="input_category_name_update" name="input_category_name_update">
           </div>
 
           <div class="mb-3">
@@ -94,21 +94,6 @@
           </div>
         </form> 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   </div> 
   
@@ -158,6 +143,7 @@
 
   {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_category.js"></script>
+<script src="./js/update_category.js"></script>
 
   <!-- Footer -->
   {{!-- <footer class="page-footer font-small blue fixed-bottom ">

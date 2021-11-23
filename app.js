@@ -371,25 +371,49 @@ app.post('/add-category-ajax', function(req, res)
     })
 });
 
+// Update a Category - PUT
+app.put('/update-category-ajax', function(req, res)
+{
+    // Capture incoming data from request body and store into data variable
+    let data = req.body;
 
-/* The URI that update data is sent to in order to update a person */
-// router.put('/:id', function(req, res){
-//     var mysql = req.app.get('mysql');
-//     console.log(req.body)
-//     console.log(req.params.id)
-//     var sql = "UPDATE bsg_people SET fname=?, lname=?, homeworld=?, age=? WHERE character_id=?";
-//     var inserts = [req.body.fname, req.body.lname, req.body.homeworld, req.body.age, req.params.id];
-//     sql = mysql.pool.query(sql,inserts,function(error, results, fields){
-//         if(error){
-//             console.log(error)
-//             res.write(JSON.stringify(error));
-//             res.end();
-//         }else{
-//             res.status(200);
-//             res.end();
-//         }
-//     });
-// });
+    update_query = `UPDATE Categories SET category_name = "${data.category_name}" 
+                        WHERE category_id = "${data.category_id}"`
+
+    db.pool.query(update_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Categories
+            read_categories_query = `SELECT * FROM Categories`;
+            db.pool.query(read_categories_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+
+});
+
 
 
 // Users_Workspaces Route
