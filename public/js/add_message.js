@@ -49,6 +49,9 @@ addMessageForm.addEventListener("submit", function (e) {
             messageTimeValue.value = '';
             messageDateValue.value = '';
 
+            // render page
+            location.reload();
+
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the message input.")

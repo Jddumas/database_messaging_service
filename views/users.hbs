@@ -89,22 +89,19 @@
       </div>
 
       <!-- Delete -->
-      <div class='col-6'>
-        <form>
+      <div class='col-3'>
+        <form id='delete-user-form'>
           <div class="mb-3">
             <h3>Delete a User:</h3>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="username">Username:</label>
-            <select class='form-select' required id="username" name="username">
-              <option value="" disabled selected hidden>Please Choose...</option>
-              <option value='username'>John Doe</option>
-            </select>
+            <label class="form-label" for="input_username_delete">Username:</label>
+            <input class="form-control" type="text" id="input_username_delete" name="input_username_delete">
           </div>
 
           <div class="mb-3">
-            <button type="button" class="btn btn-primary">Delete User</button>
+            <button type="submit" class="btn btn-primary">Delete User</button>
           </div>
         </form> 
       </div>
@@ -158,6 +155,7 @@
 
     {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_user.js"></script>
+<script src="./js/delete_user.js"></script>
 
   <!-- Footer -->
   {{!-- <footer class="page-footer font-small blue fixed-bottom ">

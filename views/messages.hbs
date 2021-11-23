@@ -96,21 +96,18 @@
 
       <!-- Delete -->
       <div class='col-6'>
-        <form>
+        <form id='delete-message-form'>
           <div class="mb-3">
             <h3>Delete a Message:</h3>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="message_id">Message:</label><br>
-            <select class="form-select" required id="message_id" name="message_id">
-                <option value="" disabled selected hidden>Choose a message_id...</option>
-                <option value='message_id'>message_id here</option>
-            </select>
+            <label class="form-label" for="input_message_id_delete">Message ID:</label>
+            <input class="form-control" type="text" id="input_message_id_delete" name="input_message_id_delete">
           </div>
 
           <div class="mb-3">
-            <button type="button" class="btn btn-primary">Delete Message</button>
+            <button type="submit" class="btn btn-primary">Delete Message</button>
           </div>
         </form> 
       </div>
@@ -168,6 +165,7 @@
 
   {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_message.js"></script>
+<script src="./js/delete_message.js"></script>
 
 
 

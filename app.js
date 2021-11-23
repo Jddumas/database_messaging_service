@@ -99,6 +99,10 @@ app.post('/add-user-ajax', function(req, res)
 
 
 
+
+
+
+
 // Workspaces Route 
 // Load Workspaces page - GET
 app.get('/workspaces', function(req, res)
@@ -219,7 +223,8 @@ app.get('/messages', function(req, res)
     query1 = "SELECT * FROM Messages;"
     db.pool.query(query1, function(error, rows, fields){
         res.render('messages', {data: rows});
-    })});
+    })
+});
 
 // Create Message - POST
 app.post('/add-message-ajax', function(req, res) 
@@ -265,6 +270,50 @@ app.post('/add-message-ajax', function(req, res)
     })
 });
 
+// Delete Message - DELETE
+app.delete('/delete-message', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    // message_id_query = `(SELECT user_id FROM Users WHERE username="${data.username}")`
+    delete_query = `DELETE FROM Messages WHERE message_id = ${data.message_id};`
+
+    db.pool.query(delete_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Users
+            read_users_query = "SELECT * FROM Messages;";
+            db.pool.query(read_users_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    // console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// ----------------------------------------------------------
 
 
 
@@ -392,6 +441,49 @@ app.post('/add-user-workspace-ajax', function(req, res)
                 else
                 {
                     console.log(rows)
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Delete User Workspace - DELETE
+app.delete('/delete-user-workspace', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    // message_id_query = `(SELECT user_id FROM Users WHERE username="${data.username}")`
+    delete_query = `DELETE FROM Users_Workspaces WHERE user_id = ${data.user_id} AND workspace_id = ${data.workspace_id};`
+
+    db.pool.query(delete_query, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Users Workspaces
+            read_users_query = "SELECT * FROM Users_Workspaces;";
+            db.pool.query(read_users_query, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    // console.log(rows)
                     res.send(rows);
                 }
             })
