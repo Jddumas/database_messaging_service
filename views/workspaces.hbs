@@ -59,7 +59,7 @@
     
   <!-- Features -->
   <div class='container'>
-    <div class="row">
+    <div class="row justify-content-center">
       <!-- Create -->
       <div class='col-6 pt'>
         <form id='add-workspace-form-ajax'>
@@ -75,27 +75,6 @@
           </div>
           
           <button type="submit" class="btn btn-primary">Create Workspace</button>
-        </form> 
-      </div>
-
-      <!-- Delete -->
-      <div class='col-6'>
-        <form>
-          <div class="mb-3">
-            <h3>Delete a Workspace:</h3>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" for="workspace_id">Workspace ID:</label><br>
-            <select class="form-select" required id="workspace_id" name="workspace_id">
-                <option value="" disabled selected hidden>Choose a workspace_id...</option>
-                <option value='workspace_id'>workspace_id here</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <button type="button" class="btn btn-primary">Delete Workspace</button>
-          </div>
         </form> 
       </div>
     </div>

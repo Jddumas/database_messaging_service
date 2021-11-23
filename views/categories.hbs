@@ -59,9 +59,9 @@
     
   <!-- Features -->
   <div class='container'>
-    <div class="row">
+    <div class="row justify-content-center">
       <!-- Create -->
-      <div class='col-6 pt'>
+      <div class='col-6 pt '>
         <form id='add-category-form-ajax'>
           <h3>Create a new Category:</h3>
           <div class="mb-3">
@@ -69,28 +69,6 @@
             <input class="form-control" type="text" id="input_category_name" name="input_category_name">
           </div>
           <button type="submit" class="btn btn-primary">Create Category</button>
-        </form> 
-      </div>
-
-      <!-- Delete -->
-      <div class='col-6'>
-        <form>
-          <div class="mb-3">
-            <h3>Delete a Category:</h3>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" for="category_id">Category ID:</label><br>
-              <select class="form-select" required id="category_id" name="category_id">
-                  <option value="" disabled selected hidden>Choose a category_id...</option>
-                  <option value='category_id 1'>category_id here</option>
-                  <option value='category_id 2'>category_id 2 here </option>
-              </select>
-          </div>
-
-          <div class="mb-3">
-            <button type="button" class="btn btn-primary">Delete Category</button>
-          </div>
         </form> 
       </div>
     </div>
