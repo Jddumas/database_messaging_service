@@ -211,11 +211,6 @@ app.post('/add-channel-ajax', function(req, res)
 });
 
 
-
-
-
-
-
 // Messages Route
 // Load Messages page - GET
 app.get('/messages', function(req, res)
@@ -313,21 +308,6 @@ app.delete('/delete-message', function(req, res)
     })
 });
 
-// ----------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Categories Route
@@ -389,6 +369,26 @@ app.post('/add-category-ajax', function(req, res)
             })
         }
     })
+});
+
+
+/* The URI that update data is sent to in order to update a person */
+router.put('/:id', function(req, res){
+    var mysql = req.app.get('mysql');
+    console.log(req.body)
+    console.log(req.params.id)
+    var sql = "UPDATE bsg_people SET fname=?, lname=?, homeworld=?, age=? WHERE character_id=?";
+    var inserts = [req.body.fname, req.body.lname, req.body.homeworld, req.body.age, req.params.id];
+    sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+        if(error){
+            console.log(error)
+            res.write(JSON.stringify(error));
+            res.end();
+        }else{
+            res.status(200);
+            res.end();
+        }
+    });
 });
 
 
