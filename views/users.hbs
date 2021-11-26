@@ -92,11 +92,36 @@
 
   <hr>
 
+  {{!-- Filter by username --}}
+  <div class='container'>
+    <div class='row justify-content-center'>
+        <div class='col-6'>
+
+        {{!-- Create a filter option --}}
+        <form id="filter-by-username">
+          <div class="mb-3">
+              <label class="form-label" for="input_username_filter" >Filter by username: </label>
+              <input class="form-control" type="text" id="input_username_filter" name="input_username_filter">
+          </div>
+          <button type="submit" class="btn btn-primary">Filter</button>
+          <button type="button" class="btn btn-primary">Clear filter</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  
+
+
   <!-- Dynamic Data Table -->
   <div class='container'>
     <div class="row justify-content-center">
       <div class='col-6'>
         <h3 class='text-center'>Users Data</h3>
+        
+
+
         {{!-- Create a table --}}
           <table class="table" id="user-table">
             {{!-- Header section --}}
@@ -116,7 +141,7 @@
             {{!-- Body section --}}
             <tbody>
 
-                {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+                {{!-- For each row, print columns in order --}}
                 {{#each data}}
                 <tr>
                     <td>{{this.user_id}}</td>
@@ -137,7 +162,7 @@
 
     {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_user.js"></script>
-<script src="./js/delete_user.js"></script>
+<script src="./js/filter_user.js"></script>
 
   <!-- Footer -->
   {{!-- <footer class="page-footer font-small blue fixed-bottom ">

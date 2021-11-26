@@ -90,9 +90,10 @@ addRowToTable = (data) => {
     // Add the cells to the row 
     row.appendChild(userIdCell);
     row.appendChild(userUsernameCell);
+    row.appendChild(userEmailCell);
     row.appendChild(userFirstNameCell);
     row.appendChild(userLastNameCell);
-    row.appendChild(userEmailCell);
+   
 
     // Add the row to the table
     currentTable.appendChild(row);

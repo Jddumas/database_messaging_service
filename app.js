@@ -43,10 +43,39 @@ app.get('/', function(req, res)
 // Load Users page - GET
 app.get('/users', function(req, res)
 {
-    query1 = "SELECT user_id, username, first_name, last_name, email FROM Users;"
+    query1 = "SELECT user_id, username, email, first_name, last_name FROM Users;"
     db.pool.query(query1, function(error, rows, fields){
         res.render('users', {data: rows});
     })
+});
+
+// Filter by username - POST
+app.post('/filter-user-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // If there was no error, perform a SELECT * on bsg_people
+    filter_users_query = `SELECT user_id, email, username, first_name, last_name FROM Users WHERE username='${data.username_filter}';`;
+    console.log("filter_users_query", filter_users_query)
+    db.pool.query(filter_users_query, function(error, rows, fields){
+
+        // If there was an error on the second query, send a 400
+        if (error) {
+            
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+        // If all went well, send the results of the query back.
+        else
+        {
+            console.log(rows)
+            // res.send(rows);
+            res.render('users', {data: rows});
+        }
+    })
+    
 });
 
 // Create User - POST
@@ -71,7 +100,7 @@ app.post('/add-user-ajax', function(req, res)
         else
         {
             // If there was no error, perform a SELECT * on bsg_people
-            read_users_query = `SELECT user_id, username, first_name, last_name, email FROM Users;`;
+            read_users_query = `SELECT user_id, email, username, first_name, last_name FROM Users;`;
             db.pool.query(read_users_query, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
