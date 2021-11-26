@@ -65,15 +65,15 @@
         <form id='add-channel-form-ajax'>
           <h3>Create a new Channel:</h3>
           <div class="mb-3">
-            <label class="form-label" for="input_channel_name">Channel Name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="input_channel_name" name="input_channel_name">
+            <label class="form-label" for="input_channel_name">Channel Name: </label>
+            <input class="form-control" type="text" id="input_channel_name" name="input_channel_name" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="input_workspace_name">Workspace Name: (foreign key, not NULL)</label>
-            <input class="form-control" type="text" id="input_workspace_name" name="input_workspace_name">
+            <label class="form-label" for="input_workspace_name">Workspace Name: </label>
+            <input class="form-control" type="text" id="input_workspace_name" name="input_workspace_name" required>
           </div>
           <div class="mb-3">
-            <label class="form-label" for="input_category_name">Category Name: (foreign key, not NULL)</label>
+            <label class="form-label" for="input_category_name">Category Name: NULLABLE</label>
             <input class="form-control" type="text" id="input_category_name" name="input_category_name">
           </div>
                     

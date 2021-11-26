@@ -41,42 +41,72 @@ app.get('/', function(req, res)
 
 // Users Route
 // Load Users page - GET
-app.get('/users', function(req, res)
+// app.get('/users/:input_username_filter?', function(req, res)
+// {
+//     console.log('req.params', req.params)
+//     query1 = `SELECT user_id, email, username, first_name, last_name FROM Users WHERE username='${req.params.input_username_filter}';`;
+//     db.pool.query(query1, function(error, rows, fields){
+//         res.render('users', {data: rows});
+//     })
+// });
+
+
+// Load Users page - GET
+// app.get('/users/:input_username_filter', function(req, res)
+// {
+//     query1 = `SELECT user_id, email, username, first_name, last_name FROM Users WHERE username="${req.params.input_username_filter}";`;
+//     console.log('query with parameters', query1)
+//     db.pool.query(query1, function(error, rows, fields){
+//         console.log("data", {data: rows})
+//         res.render('users', {data: rows});
+//     })
+// });
+
+// // Load Users page - GET
+// app.get('/users', function(req, res)
+// {
+//     query1 = "SELECT user_id, username, email, first_name, last_name FROM Users;"
+//     db.pool.query(query1, function(error, rows, fields){
+//         res.render('users', {data: rows});
+//     })
+// });
+
+
+
+// Load Users page - GET
+app.get('/users/:input_username_filter?', function(req, res)
 {
-    query1 = "SELECT user_id, username, email, first_name, last_name FROM Users;"
-    db.pool.query(query1, function(error, rows, fields){
-        res.render('users', {data: rows});
-    })
-});
-
-// Filter by username - POST
-app.post('/filter-user-ajax', function(req, res) 
-{
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // If there was no error, perform a SELECT * on bsg_people
-    filter_users_query = `SELECT user_id, email, username, first_name, last_name FROM Users WHERE username='${data.username_filter}';`;
-    console.log("filter_users_query", filter_users_query)
-    db.pool.query(filter_users_query, function(error, rows, fields){
-
-        // If there was an error on the second query, send a 400
-        if (error) {
-            
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
-        }
-        // If all went well, send the results of the query back.
-        else
-        {
-            console.log(rows)
-            // res.send(rows);
+    if(req.params.input_username_filter)
+    {
+        query1 = `SELECT user_id, email, username, first_name, last_name FROM Users WHERE username='${req.params.input_username_filter}';`;
+        console.log('query with parameters', query1)
+        db.pool.query(query1, function(error, rows, fields){
+            console.log("load page with parameter", data)
+            res.send(rows);
             res.render('users', {data: rows});
-        }
-    })
-    
+            
+        })
+    }
+    else
+    {
+        query2 = "SELECT user_id, username, email, first_name, last_name FROM Users;"
+        console.log("load page without any parameters")
+        db.pool.query(query2, function(error, rows, fields){
+            res.render('users', {data: rows});
+        })
+    }
 });
+
+// Load Users page - GET
+// app.get('/users', function(req, res)
+// {
+//     query1 = "SELECT user_id, username, email, first_name, last_name FROM Users;"
+//     db.pool.query(query1, function(error, rows, fields){
+//         res.render('users', {data: rows});
+//     })
+// });
+
+
 
 // Create User - POST
 app.post('/add-user-ajax', function(req, res) 

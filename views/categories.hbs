@@ -65,8 +65,8 @@
         <form id='add-category-form-ajax'>
           <h3>Create a new Category:</h3>
           <div class="mb-3">
-            <label class="form-label" for="input_category_name">Category name: (varchar(16), not NULL)</label><br>
-            <input class="form-control" type="text" id="input_category_name" name="input_category_name">
+            <label class="form-label" for="input_category_name">Category name: </label><br>
+            <input class="form-control" type="text" id="input_category_name" name="input_category_name" required>
           </div>
           <button type="submit" class="btn btn-primary">Create Category</button>
         </form> 
@@ -76,17 +76,17 @@
       <div class='col-6'>
         <form id='update-category-form-ajax'>
           <div class="mb-3">
-            <h3>Update a Category:</h3>
+            <h3>Update a Category name:</h3>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_category_id_update">Category ID: not NULL</label>
-            <input class="form-control" type="text" id="input_category_id_update" name="input_category_id_update">
+            <label class="form-label" for="input_category_id_update">Category ID:</label>
+            <input class="form-control" type="text" id="input_category_id_update" name="input_category_id_update" required>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_category_name_update">Category Name: (varchar(16), not NULL)</label>
-            <input class="form-control" type="text" id="input_category_name_update" name="input_category_name_update">
+            <label class="form-label" for="input_category_name_update">Category Name:</label>
+            <input class="form-control" type="text" id="input_category_name_update" name="input_category_name_update" required>
           </div>
 
           <div class="mb-3">

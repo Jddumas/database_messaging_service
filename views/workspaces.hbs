@@ -65,13 +65,13 @@
         <form id='add-workspace-form-ajax'>
           <h3>Create a new Workspace:</h3>
           <div class="mb-3">
-            <label class="form" for="input_workspace_name">Workspace Name: (varchar(16), not NULL)</label><br>
-            <input type="text" id="input_workspace_name" name="input_workspace_name">
+            <label class="form" for="input_workspace_name">Workspace Name: </label><br>
+            <input type="text" id="input_workspace_name" name="input_workspace_name" required>
           </div>
 
           <div class="mb-3">
-            <label class="form" for="input_administrator">Administrator: *Enter username* (foreign key)</label><br>
-            <input type="text" id="input_administrator" name="input_administrator">
+            <label class="form" for="input_administrator">Administrator: *Enter username*</label><br>
+            <input type="text" id="input_administrator" name="input_administrator" required>
           </div>
           
           <button type="submit" class="btn btn-primary">Create Workspace</button>

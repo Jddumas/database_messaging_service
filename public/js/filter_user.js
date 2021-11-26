@@ -21,7 +21,9 @@ filterUsernameForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/filter-user-ajax", true);
+    console.log("fdsafsdfsafds", `/users/${filterUsernameValue}`)
+    // xhttp.open("POST", "/filter-user-ajax", true);
+    xhttp.open("GET", `/users/${filterUsernameValue}`, true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve

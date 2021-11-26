@@ -36,14 +36,13 @@ addUserForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
-            addRowToTable(xhttp.response);
-
             // Clear the input fields for another transaction
             inputUsername.value = '';
             inputFirstName.value = '';
             inputLastName.value = '';
             inputEmail.value = '';
+
+            location.reload();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -55,46 +54,3 @@ addUserForm.addEventListener("submit", function (e) {
     xhttp.send(JSON.stringify(data));
 
 })
-
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
-addRowToTable = (data) => {
-
-    // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("user-table");
-
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
-
-    // Create a row and 5 cells
-    let row = document.createElement("tr");
-    let userIdCell = document.createElement("td");
-    let userUsernameCell = document.createElement("td");
-    let userFirstNameCell = document.createElement("td");
-    let userLastNameCell = document.createElement("td");
-    let userEmailCell = document.createElement("td");
-    
-    
-    // Fill the cells with correct data
-    userIdCell.innerText = newRow.user_id;
-    userUsernameCell.innerText = newRow.username;
-    userFirstNameCell.innerText = newRow.first_name;
-    userLastNameCell.innerText = newRow.last_name;
-    userEmailCell.innerText = newRow.email;
-    
-    // Add the cells to the row 
-    row.appendChild(userIdCell);
-    row.appendChild(userUsernameCell);
-    row.appendChild(userEmailCell);
-    row.appendChild(userFirstNameCell);
-    row.appendChild(userLastNameCell);
-   
-
-    // Add the row to the table
-    currentTable.appendChild(row);
-}

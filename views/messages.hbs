@@ -66,28 +66,28 @@
           <h3>Create a new Message:</h3>
 
           <div class="mb-3">
-            <label class="form-label" for="input_username">Username: (foreign key) not NULL </label>
-            <input class="form-control" type="text" id="input_username" name="input_username"></input>
+            <label class="form-label" for="input_username">Username:</label>
+            <input class="form-control" type="text" id="input_username" name="input_username" required></input>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_channel">Channel: (foreign key) not NULL</label>
-            <input class="form-control" type="text" id="input_channel" name="input_channel"></input>
+            <label class="form-label" for="input_channel">Channel:</label>
+            <input class="form-control" type="text" id="input_channel" name="input_channel" required></input>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_content">Message Content: varchar(2000), not NULL</label>
-            <textarea class="form-control" type="text" id="input_content" name="input_content" rows="3"></textarea>
+            <label class="form-label" for="input_content">Message Content:</label>
+            <textarea class="form-control" type="text" id="input_content" name="input_content" rows="3" required></textarea>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_time">Time: time (format: HH:MM:SS, military), not NULL</label>
-            <input class="form-control" type="text" id="input_time" name="input_time"></input>
+            <label class="form-label" for="input_time">Time: time (format: HH:MM:SS, military)</label>
+            <input class="form-control" type="text" id="input_time" name="input_time" required></input>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_date">Date: date (format: YYYY-MM-DD), not NULL</label>
-            <input class="form-control" type="text" id="input_date" name="input_date"></input>
+            <label class="form-label" for="input_date">Date: date (format: YYYY-MM-DD)</label>
+            <input class="form-control" type="text" id="input_date" name="input_date" required></input>
           </div>
           
           <button type="submit" class="btn btn-primary">Create Message</button>
@@ -103,7 +103,7 @@
 
           <div class="mb-3">
             <label class="form-label" for="input_message_id_delete">Message ID:</label>
-            <input class="form-control" type="text" id="input_message_id_delete" name="input_message_id_delete">
+            <input class="form-control" type="text" id="input_message_id_delete" name="input_message_id_delete" required>
           </div>
 
           <div class="mb-3">

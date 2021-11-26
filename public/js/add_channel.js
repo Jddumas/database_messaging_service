@@ -34,13 +34,15 @@ addChannelForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
-            addRowToTable(xhttp.response);
+            // // Add the new data to the table
+            // addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
             inputChannelName.value = '';
             inputWorkspaceName.value = '';
             inputCategoryName.value = '';
+
+            location.reload();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -52,41 +54,3 @@ addChannelForm.addEventListener("submit", function (e) {
     xhttp.send(JSON.stringify(data));
 
 })
-
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
-addRowToTable = (data) => {
-
-    // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("channel-table");
-
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
-
-    // Create a row and 4 cells
-    let row = document.createElement("tr");
-    let channelIdCell = document.createElement("td");
-    let channelNameCell = document.createElement("td");
-    let channelWorkspaceIdCell = document.createElement("td");   
-    let channelCategoryIdCell = document.createElement("td");   
-    
-    // Fill the cells with correct data
-    channelIdCell.innerText = newRow.channel_id;
-    channelNameCell.innerText = newRow.channel_name;
-    channelWorkspaceIdCell.innerText = newRow.workspace_id;
-    channelCategoryIdCell.innerText = newRow.category_id;
-    
-    // Add the cells to the row 
-    row.appendChild(channelIdCell);
-    row.appendChild(channelNameCell);
-    row.appendChild(channelWorkspaceIdCell);
-    row.appendChild(channelCategoryIdCell);
-
-    // Add the row to the table
-    currentTable.appendChild(row);
-}

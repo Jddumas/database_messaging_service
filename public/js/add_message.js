@@ -39,9 +39,6 @@ addMessageForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
-            addRowToTable(xhttp.response);
-
             // Clear the input fields for another transaction
             messageUsernameValue.value = '';
             messageChannelNameValue.value = '';
@@ -63,46 +60,3 @@ addMessageForm.addEventListener("submit", function (e) {
 
 })
 
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
-addRowToTable = (data) => {
-
-    // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("message-table");
-
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
-
-    // Create a row and 4 cells
-    let row = document.createElement("tr");
-    let messageIdCell = document.createElement("td");
-    let messageUserCell = document.createElement("td");
-    let messageChannelCell = document.createElement("td");   
-    let messageTimeCell = document.createElement("td");   
-    let messageDateCell = document.createElement("td");   
-    let messageContentCell = document.createElement("td"); 
-    
-    // Fill the cells with correct data
-    messageIdCell.innerText = newRow.message_id;
-    messageUserCell.innerText = newRow.user;
-    messageChannelCell.innerText = newRow.channel;
-    messageTimeCell.innerText = newRow.time;
-    messageDateCell.innerText = newRow.date;
-    messageContentCell.innerText = newRow.content;
-    
-    // Add the cells to the row 
-    row.appendChild(messageIdCell);
-    row.appendChild(messageUserCell);
-    row.appendChild(messageChannelCell);
-    row.appendChild(messageTimeCell);
-    row.appendChild(messageDateCell);
-    row.appendChild(messageContentCell);
-
-    // Add the row to the table
-    currentTable.appendChild(row);
-}

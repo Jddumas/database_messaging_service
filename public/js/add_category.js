@@ -28,11 +28,10 @@ addCategoryForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new data to the table
-            addRowToTable(xhttp.response);
-
             // Clear the input fields for another transaction
             inputCategoryName.value = '';
+
+            location.reload();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -44,35 +43,3 @@ addCategoryForm.addEventListener("submit", function (e) {
     xhttp.send(JSON.stringify(data));
 
 })
-
-
-// Creates a single row from an Object representing a single record from 
-// bsg_people
-addRowToTable = (data) => {
-
-    // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("category-table");
-
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
-    let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
-
-    // Create a row and 2 cells
-    let row = document.createElement("tr");
-    let categoryIdCell = document.createElement("td");
-    let categoryNameCell = document.createElement("td");
-    
-    // Fill the cells with correct data
-    categoryIdCell.innerText = newRow.category_id;
-    categoryNameCell.innerText = newRow.category_name;
-    
-    // Add the cells to the row 
-    row.appendChild(categoryIdCell);
-    row.appendChild(categoryNameCell);
-
-    // Add the row to the table
-    currentTable.appendChild(row);
-}

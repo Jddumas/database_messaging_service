@@ -66,13 +66,13 @@
           <h3>Insert a User into Workspace:</h3>
 
           <div class="mb-3">
-            <label class="form-label" for="input_username">Username: (foreign key, not NULL)</label><br>
-            <input class="form-control" type="text" id="input_username" name="input_username">
+            <label class="form-label" for="input_username">Username:</label><br>
+            <input class="form-control" type="text" id="input_username" name="input_username" required>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_workspace_name">Workspace name: (foreign key, not NULL)</label><br>
-            <input class="form-control" type="text" id="input_workspace_name" name="input_workspace_name">
+            <label class="form-label" for="input_workspace_name">Workspace name:</label><br>
+            <input class="form-control" type="text" id="input_workspace_name" name="input_workspace_name" required>
           </div>
 
           <button type="submit" class="btn btn-primary">Insert</button>
@@ -85,13 +85,13 @@
           <h3>Delete a User/Workspace relationship:</h3>
 
           <div class="mb-3">
-            <label class="form-label" for="input_user_id_delete">User ID: (foreign key, not NULL)</label><br>
-            <input class="form-control" type="text" id="input_user_id_delete" name="input_user_id_delete">
+            <label class="form-label" for="input_user_id_delete">User ID:</label><br>
+            <input class="form-control" type="text" id="input_user_id_delete" name="input_user_id_delete" required>
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="input_workspace_id_delete">Workspace ID: (foreign key, not NULL)</label><br>
-            <input class="form-control" type="text" id="input_workspace_id_delete" name="input_workspace_id_delete">
+            <label class="form-label" for="input_workspace_id_delete">Workspace ID:</label><br>
+            <input class="form-control" type="text" id="input_workspace_id_delete" name="input_workspace_id_delete" required>
           </div>
 
           <button type="submit" class="btn btn-primary">Delete</button>
