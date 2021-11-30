@@ -1,97 +1,76 @@
 -- FOR REFERENCE ONLY **not in use** 
 
 -- USERS --
--- get all Usernames to populate the Delete a User dropdown
-SELECT username FROM Users
+-- get all Users data
+SELECT user_id, username, email, first_name, last_name FROM Users;
+
+-- get filtered Users
+SELECT user_id, email, username, first_name, last_name FROM Users WHERE username=:input_username_filter;
+
+-- *user_id_query: get a user_id from a given username 
+SELECT user_id FROM Users WHERE username=:input_administrator_username;
 
 -- add a new user
 INSERT INTO Users (username, email, first_name, last_name) 
-    VALUES (:username_input, :email_input, :first_name_input, :last_name_input)
+    VALUES (:username_input, :email_input, :first_name_input, :last_name_input);
 
--- delete a user
-DELETE FROM Users WHERE username = “:username_delete_input”
 
 -- WORKSPACES --
--- get all user_id's to populate the Administrator dropdown
-SELECT user_id FROM Users
+-- get all Workspaces data
+SELECT * FROM Workspaces;
 
--- get all workspace_id's populate the Delete a Workspace dropdown
-SELECT workspace_id FROM Workspaces
+-- *workspace_query: get a workspace id from a given workspace name 
+SELECT workspace_id FROM Workspaces WHERE workspace_name=:input_workspace_name;
 
--- create a workspace
-INSERT INTO Workspaces (workspace_name, administrator)
-    VALUES (:workspace_name_input, :administrator_input)
-
--- delete a workspace
-DELETE FROM Workspaces WHERE workspace_id = “:workspace_id_delete_input”
+-- add a new workspace
+INSERT INTO Workspaces (workspace_name, administrator) 
+    VALUES (:input_workspace_name, *user_id_query);
 
 
 -- CHANNELS --
--- get all workspace_id's populate the Workspace ID dropdown *** change to workspace_name
-SELECT workspace_id FROM Channels
+-- get all Channels data
+SELECT * FROM Channels;
 
--- get all category_id's populate the Workspace ID dropdown *** change to category_name
-SELECT category_id FROM Channels
+-- *channel_query: get a Channel ID from a given Channel name 
+SELECT channel_id FROM Channels WHERE channel_name=:input_channel_name;
 
--- get all channel_id's populate the Channel ID dropdown *** use channel_name get channel_id?
-SELECT channel_id FROM Channels
-
--- create a channel
+-- add a new channel
 INSERT INTO Channels (channel_name, workspace_id, category_id) 
-    VALUES (:channel_name_input, :workspace_id_input, :category_id_input)
+    VALUES (:input_channel_name, *workspace_query, *category_query);
 
--- update a channel data based on submission of the Update a Channel form 
-UPDATE Channel SET channel_name = :channel_name_update_input, 
-workspace_id = :workspace_id_update_input, 
-category_id = :category_id_update_input
 
 -- CATEGORIES --
--- get all category_id's populate the Delete a Category dropdown *** change to category_name
-SELECT category_id FROM Categories
+-- get all Categories data
+SELECT * FROM Categories;
 
--- create a category
-INSERT INTO Categories (category_name) VALUES (:category_name_input)
+-- *category_query: get a category_id from a given category name 
+SELECT category_id FROM Categories WHERE category_name=:input_category_name;
 
--- delete a category
-DELETE FROM Categories WHERE category_id = “:category_id_delete_input”
+-- create a Category
+INSERT INTO Categories (category_name) VALUES (:input_data.category_name);
+
+-- update a Category
+UPDATE Categories SET category_name = :input_category_name WHERE category_id = :input_category_id;
 
 
 -- MESSAGES --
--- get all user_id's to populate the Username dropdown *** change to users
-SELECT user_id FROM Users
+-- get all Messages data
+SELECT * FROM Messages;
 
--- get all channel_id's populate the Channel ID dropdown *** use channel_name
-SELECT channel_id FROM Channels
+-- create a Message
+INSERT INTO Messages (user, channel, time, date, content)
+     VALUES (*user_id_query, *channel_query, :input_time, :input_date, :input_content);
 
--- get all message_id's populate the Delete a Message dropdown
-SELECT message_id FROM Messages
-
--- get messages where user_id is the filter
-SELECT content FROM Messages WHERE user = “user_id_input”
-
--- create a message
-INSERT INTO Messages (user, channel, time, date, content) 
-VALUES (:user_input, :channel_input, :time_input, :date_input, :content_input)
-
--- delete a message
-DELETE FROM Categories WHERE category_id = “:category_id_delete_input”
+-- delete a Message
+DELETE FROM Messages WHERE message_id = :input_message_id;
 
 
 -- USERS_WORKSPACES --
--- get all user_id's to populate the User dropdown *** change to username
-SELECT user_id FROM Users
+-- get all Users_Workspaces data
+SELECT * FROM Users_Workspaces;
 
--- get all workspace_id's to populate the Workspace dropdown *** change to workspace_name
-SELECT workspace_id FROM Workspaces
+-- create a Users Workspaces relationship
+INSERT INTO Users_Workspaces (user_id, workspace_id) VALUES (*user_id_query, *workspace_query);
 
--- associate a user with a workspace (M-to-M relationship addition)
-INSERT INTO Users_Workspaces (user_id, workspace_id)
-    VALUES (:user_id_input, :workspace_id_input)
-
--- dis-associate a user from a workspace (M-to-M relationship deletion)
-DELETE FROM Users_Workspaces 
-WHERE user_id = :user_id_delete_input 
-AND workspace_id = :workspace_id_delete_input
-
--- get all Users and Workspaces with their current associated Workspaces and Users to display on the list
-SELECT user_id, workspace_id FROM Users_Workspaces
+-- delete a Users_Workspaces
+DELETE FROM Users_Workspaces WHERE user_id = :input_user_id AND workspace_id = :input_workspace_id;
