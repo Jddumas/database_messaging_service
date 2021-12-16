@@ -1,4 +1,4 @@
-<h1> Welcome to Database Messaging Service <h1>
+<h1> Welcome to Database Messaging Service </h1>
 
 This program implements the functionality for a messaging service to use at any business.
   
